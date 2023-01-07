@@ -14,6 +14,7 @@
 /*
 FIZZBUZZ IMPLEMENTATION (results):
 [piped, 8 threads, set array]
+[4790k, 16gb 1600 ram]
 
 1000 (1k) 
 {
@@ -59,14 +60,63 @@ FIZZBUZZ IMPLEMENTATION (results):
 }
 */
 
+/*
+FIZZBUZZ IMPLEMENTATION (results):
+[piped, 16 threads, set array]
+[11700k, 16gb 3200 ram]
+
+1000 (1k)
+{
+	TIME TAKEN (all)       : 0.006130
+	TIME TAKEN (write)     : 0.000009
+	TIME TAKEN (calculate) : 0.006121
+}
+10000 (10k)
+{
+	TIME TAKEN (all)       : 0.005881
+	TIME TAKEN (write)     : 0.000141
+	TIME TAKEN (calculate) : 0.005740
+}
+100000 (100k)
+{
+	TIME TAKEN (all)       : 0.006562
+	TIME TAKEN (write)     : 0.000669
+	TIME TAKEN (calculate) : 0.005894
+}
+1000000 (1m)
+{
+	TIME TAKEN (all)       : 0.016193
+	TIME TAKEN (write)     : 0.007622
+	TIME TAKEN (calculate) : 0.008571
+}
+10000000 (10m)
+{
+	TIME TAKEN (all)       : 0.125513
+	TIME TAKEN (write)     : 0.093172
+	TIME TAKEN (calculate) : 0.032341
+}
+100000000 (100m)
+{
+	TIME TAKEN (all)       : 1.279255
+	TIME TAKEN (write)     : 0.970500
+	TIME TAKEN (calculate) : 0.308755
+}
+1000000000 (1b)
+{
+	TIME TAKEN (all)       : 43.263438
+	TIME TAKEN (write)     : 33.245785
+	TIME TAKEN (calculate) : 10.017654
+}
+*/
+
 /***************************************************/
 
 // fizzbuzz ceiling
-static constexpr uint64_t FB_CEIL = 10000000;
+static constexpr uint64_t FB_CEIL = 1000000000;
 
 // amount of threads going to be used
 // supports 1-8 and 16
-static constexpr uint8_t THREADS_TO_USE = 8;
+static constexpr uint8_t THREADS_TO_USE = 16;
 
 // type of fizzbuzz implementation
 // 0 = counters, 1 = set array, 2 = modulus
@@ -280,15 +330,16 @@ int main()
 		std::thread FB_T6(FB_inrange, sections[5], sections[6], 5, FB_TYPE);
 		std::thread FB_T7(FB_inrange, sections[6], sections[7], 6, FB_TYPE);
 		std::thread FB_T8(FB_inrange, sections[7], sections[8], 7, FB_TYPE);
-		std::thread FB_T1(FB_inrange, sections[8], sections[9], 8, FB_TYPE);
-		std::thread FB_T2(FB_inrange, sections[9], sections[10], 9, FB_TYPE);
-		std::thread FB_T3(FB_inrange, sections[10], sections[11], 10, FB_TYPE);
-		std::thread FB_T4(FB_inrange, sections[11], sections[12], 11, FB_TYPE);
-		std::thread FB_T5(FB_inrange, sections[12], sections[13], 12, FB_TYPE);
-		std::thread FB_T6(FB_inrange, sections[13], sections[14], 13, FB_TYPE);
-		std::thread FB_T7(FB_inrange, sections[14], sections[15], 14, FB_TYPE);
-		std::thread FB_T8(FB_inrange, sections[15], sections[16], 15, FB_TYPE);
+		std::thread FB_T11(FB_inrange, sections[8], sections[9], 8, FB_TYPE); // what the fuck is this skip??? T8 to T11???
+		std::thread FB_T12(FB_inrange, sections[9], sections[10], 9, FB_TYPE);
+		std::thread FB_T13(FB_inrange, sections[10], sections[11], 10, FB_TYPE);
+		std::thread FB_T14(FB_inrange, sections[11], sections[12], 11, FB_TYPE);
+		std::thread FB_T15(FB_inrange, sections[12], sections[13], 12, FB_TYPE);
+		std::thread FB_T16(FB_inrange, sections[13], sections[14], 13, FB_TYPE);
+		std::thread FB_T17(FB_inrange, sections[14], sections[15], 14, FB_TYPE);
+		std::thread FB_T18(FB_inrange, sections[15], sections[16], 15, FB_TYPE);
 		FB_T1.join(); FB_T2.join(); FB_T3.join(); FB_T4.join(); FB_T5.join(); FB_T6.join(); FB_T7.join(); FB_T8.join();
+		FB_T11.join(); FB_T12.join(); FB_T13.join(); FB_T14.join(); FB_T15.join(); FB_T16.join(); FB_T17.join(); FB_T18.join();
 	}
 
 	// FB_inrange(sections[0], sections[1], 0, FB_TYPE);
